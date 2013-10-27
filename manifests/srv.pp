@@ -79,7 +79,7 @@ define bind::srv (
   $order           = '20'
   ) {
 
-  $real_priority = "$record_priority $record_weight $record_port"
+  $real_priority = "${record_priority} ${record_weight} ${record_port}"
 
   bind::record { "SRV-${name}.${zone}":
     zone            => $zone,
