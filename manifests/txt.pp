@@ -26,7 +26,7 @@ define bind::txt (
   $order        = '30'
   ) {
 
-  bind::record { "TXT-$name.$zone":
+  bind::record { "TXT-${name}.${zone}":
     zone         => $zone,
     target       => $target,
     host         => $host,

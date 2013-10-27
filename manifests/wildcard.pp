@@ -44,7 +44,7 @@ define bind::wildcard (
   $order        = '999999'
   ) {
 
-  bind::record { "wildcard-$name":
+  bind::record { "wildcard-${name}":
     zone         => $zone,
     target       => $target,
     host         => $host,

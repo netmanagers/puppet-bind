@@ -152,14 +152,14 @@ define bind::zone(
     #
     if $zone_type == 'master'
     or $zone_type == 'hint' {
-      concat { "$bind::config_dir/$zone_config_file":
+      concat { "${bind::config_dir}/${zone_config_file}":
         mode   => $bind::config_file_mode,
         owner  => $bind::config_file_owner,
         group  => $bind::config_file_group,
         notify => $bind::manage_service_autorestart,
       }
-      Concat::Fragment <| tag == "bind-zone-$real_export_tag" |> {
-        target => "$bind::config_dir/$zone_config_file",
+      Concat::Fragment <| tag == "bind-zone-${real_export_tag}" |> {
+        target => "${bind::config_dir}/${zone_config_file}",
         order  => 50,
       }
     }
@@ -173,15 +173,15 @@ define bind::zone(
 
     if $zone_type== 'master' {
       concat::fragment{"bind-zone-${zone_name}-header":
-        target  => "$bind::config_dir/$zone_config_file",
+        target  => "${bind::config_dir}/${zone_config_file}",
         content => template($template),
         order   => 01,
       }
     }
   } else {
-    file{"zone-$zone_name":
+    file{"zone-${zone_name}":
       ensure => absent,
-      path   => "$bind::config_dir/$zone_config_file",
+      path   => "${bind::config_dir}/${zone_config_file}",
     }
   }
 }
