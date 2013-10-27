@@ -351,7 +351,6 @@ class bind (
   }
 
   if $bind::absent == false {
-    include concat::setup
     concat { $bind::config_file:
       mode    => $bind::config_file_mode,
       owner   => $bind::config_file_owner,

@@ -142,7 +142,6 @@ define bind::zone(
   }
 
   include bind
-  include concat::setup
 
   $zone_config_file = "db.${zone_name}.conf"
 

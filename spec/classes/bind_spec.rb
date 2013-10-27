@@ -4,7 +4,7 @@ describe 'bind' do
 
   let(:title) { 'bind' }
   let(:node) { 'rspec.example42.com' }
-  let(:facts) { { :ipaddress    => '10.42.42.42' } }
+  let(:facts) { { :ipaddress => '10.42.42.42', :concat_basedir => '/var/lib/puppet/concat'} }
   let(:params) { { :config_file => '/etc/bind/named.conf' } }
 
   describe 'Test standard installation' do
@@ -181,7 +181,7 @@ describe 'bind' do
   end
 
   describe 'Test params lookup' do
-    let(:facts) { { :monitor => true , :ipaddress => '10.42.42.42' } }
+    let(:facts) { { :monitor => true , :ipaddress => '10.42.42.42', :concat_basedir => '/var/lib/puppet/concat' } }
     let(:params) { { :port => '42' } }
 
     it 'should honour top scope global vars' do
@@ -191,7 +191,7 @@ describe 'bind' do
   end
 
   describe 'Test params lookup' do
-    let(:facts) { { :bind_monitor => true , :ipaddress => '10.42.42.42' } }
+    let(:facts) { { :bind_monitor => true , :ipaddress => '10.42.42.42', :concat_basedir => '/var/lib/puppet/concat' } }
     let(:params) { { :port => '42' } }
 
     it 'should honour module specific vars' do
@@ -201,7 +201,7 @@ describe 'bind' do
   end
 
   describe 'Test params lookup' do
-    let(:facts) { { :monitor => false , :bind_monitor => true , :ipaddress => '10.42.42.42' } }
+    let(:facts) { { :monitor => false , :bind_monitor => true , :ipaddress => '10.42.42.42', :concat_basedir => '/var/lib/puppet/concat' } }
     let(:params) { { :port => '42' } }
 
     it 'should honour top scope module specific over global vars' do
@@ -211,7 +211,7 @@ describe 'bind' do
   end
 
   describe 'Test params lookup' do
-    let(:facts) { { :monitor => false , :ipaddress => '10.42.42.42' } }
+    let(:facts) { { :monitor => false , :ipaddress => '10.42.42.42', :concat_basedir => '/var/lib/puppet/concat' } }
     let(:params) { { :monitor => true , :firewall => true, :port => '42' } }
 
     it 'should honour passed params over global vars' do
