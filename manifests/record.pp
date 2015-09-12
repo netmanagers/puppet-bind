@@ -78,7 +78,7 @@ define bind::record (
   ) {
 
   if $absent == false {
-    @concat::fragment { "bind-zone-${zone}-${order}-${host}-${target}":
+    @concat::fragment { "bind-zone-${zone}-${order}-${name}-${target}":
       tag     => "bind-zone-${export_tag}",
       content => template($template),
       order   => $order

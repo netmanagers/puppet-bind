@@ -1,5 +1,5 @@
 name    'netmanagers-bind'
-version '2.0.9'
+version '2.0.10'
 author  'Javier Bertoli'
 license 'Apache2'
 project_page 'http://www.netmanagers.com.ar'
