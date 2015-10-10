@@ -1,7 +1,7 @@
 zone "<%= @zone_name %>" {
   type <%= @zone_type %>;
 <% if @zone_type == 'slave' or @zone_type == 'master' or @zone_type == 'hint' -%>
-  file "<%= scope.lookupvar("bind::config_dir") %>/<%= @zone_config_file %>";
+  file "<%= scope.lookupvar("bind::data_dir") %>/<%= @zone_config_file %>";
 <% end -%>
 <% if @zone_type == 'master' && @zone_slaves != [] -%>
   allow-transfer {
