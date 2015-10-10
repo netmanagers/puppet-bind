@@ -58,6 +58,10 @@
 #   Zone master server IP address. Use by slave zone.
 #   (Default: '')
 #
+# [*zone_slaves*]
+#   Set of slaves for the zone. Can be an array.
+#   (Default: '')
+#
 # [*zone_forward*]
 #   Set of forwarders for the zone. Can be an array.
 #   (Default: '')
@@ -115,6 +119,7 @@ define bind::zone(
   $zone_neg_cache = '604800',
   $zone_ns        = '',
   $zone_master    = '',
+  $zone_slaves    = '',
   $zone_forward   = '',
   $absent         = false,
   $template       = 'bind/zone-header.erb',
@@ -152,14 +157,14 @@ define bind::zone(
     #
     if $zone_type == 'master'
     or $zone_type == 'hint' {
-      concat { "${bind::config_dir}/${zone_config_file}":
+      concat { "${bind::data_dir}/${zone_config_file}":
         mode   => $bind::config_file_mode,
         owner  => $bind::config_file_owner,
         group  => $bind::config_file_group,
         notify => $bind::manage_service_autorestart,
       }
       Concat::Fragment <| tag == "bind-zone-${real_export_tag}" |> {
-        target => "${bind::config_dir}/${zone_config_file}",
+        target => "${bind::data_dir}/${zone_config_file}",
         order  => 50,
       }
     }
@@ -173,7 +178,7 @@ define bind::zone(
 
     if $zone_type== 'master' {
       concat::fragment{"bind-zone-${zone_name}-header":
-        target  => "${bind::config_dir}/${zone_config_file}",
+        target  => "${bind::data_dir}/${zone_config_file}",
         content => template($template),
         order   => 01,
       }
@@ -181,7 +186,7 @@ define bind::zone(
   } else {
     file{"zone-${zone_name}":
       ensure => absent,
-      path   => "${bind::config_dir}/${zone_config_file}",
+      path   => "${bind::data_dir}/${zone_config_file}",
     }
   }
 }
